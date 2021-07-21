@@ -20,7 +20,7 @@ class Model(nn.Module):
         self.Prediction = nn.Linear(self.SequenceModeling_output, num_class)
 
 
-    def forward(self, input, text):
+    def forward(self, input, text=""):
         """ Feature extraction stage """
         visual_feature = self.FeatureExtraction(input)
         visual_feature = self.AdaptiveAvgPool(visual_feature.permute(0, 3, 1, 2))
