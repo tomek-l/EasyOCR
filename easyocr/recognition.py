@@ -111,8 +111,8 @@ def recognizer_predict(model, converter, test_loader, batch_max_length,\
             text_for_pred = torch.LongTensor(batch_size, batch_max_length + 1).fill_(0).to(device)
 
             #ak
-            model = torch2trt(model,[image])#, use_onnx=True)
-            print("CONVERTED RECOGNIZER TO TRT!")
+#             model = torch2trt(model,[image])#, use_onnx=True)
+#             print("CONVERTED RECOGNIZER TO TRT!")
             
             preds = model(image, text_for_pred)
             
