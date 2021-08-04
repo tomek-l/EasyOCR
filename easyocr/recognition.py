@@ -9,6 +9,8 @@ from collections import OrderedDict
 import importlib
 from .utils import CTCLabelConverter
 import math
+from torch2trt import torch2trt
+
 
 def custom_mean(x):
     return x.prod()**(2.0/np.sqrt(len(x)))
@@ -108,7 +110,12 @@ def recognizer_predict(model, converter, test_loader, batch_max_length,\
             length_for_pred = torch.IntTensor([batch_max_length] * batch_size).to(device)
             text_for_pred = torch.LongTensor(batch_size, batch_max_length + 1).fill_(0).to(device)
 
+            #ak
+#             model = torch2trt(model,[image])#, use_onnx=True)
+#             print("CONVERTED RECOGNIZER TO TRT!")
+            
             preds = model(image, text_for_pred)
+            
 
             # Select max probabilty (greedy decoding) then decode index to character
             preds_size = torch.IntTensor([preds.size(1)] * batch_size)
@@ -178,9 +185,16 @@ def get_recognizer(recog_network, network_params, character,\
             except:
                 pass
     else:
+        
+        #ak
+#         print('Before data parallel, attempt onnx:')
+#         image = torch.ones((1,1,64,320),dtype=torch.float)#.to('cuda')
+#         model_trt = torch2trt(model,[image], use_onnx=True)
+#         print("CONVERTED RECOGNIZER TO TRT!")
+        
         model = torch.nn.DataParallel(model).to(device)
         model.load_state_dict(torch.load(model_path, map_location=device))
-
+        
     return model, converter
 
 def get_text(character, imgH, imgW, recognizer, converter, image_list,\
