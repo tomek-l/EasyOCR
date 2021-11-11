@@ -54,12 +54,12 @@ import time
 import torch
 from torchvision import transforms
 from PIL import Image, ImageDraw
-from EAST.model import EAST
+# from EAST.model import EAST
 import os
 #from dataset import get_rotate_mat
 import numpy as np
-import lanms
-from EAST.detect import detect
+# import lanms
+# from EAST.detect import detect
 
 def copyStateDict(state_dict):
     if list(state_dict.keys())[0].startswith("module"):
