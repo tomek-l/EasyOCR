@@ -237,4 +237,4 @@ def get_textbox_EAST(model,img_path,device):
     print("detection time East:",b-a)
     return EAST
 
-For EAST detection, follow the instructions on the official EAST repository [here]() and clone it inside the EasyOCR/ directory in this project. Then uncomment the correct lines in easyocr.py detect fucntion. Make sure to call reader.readtext with the image path if you are using EAST.
+# For EAST detection, follow the instructions on the official EAST repository [here]() and clone it inside the EasyOCR/ directory in this project. Then uncomment the correct lines in easyocr.py detect fucntion. Make sure to call reader.readtext with the image path if you are using EAST.
